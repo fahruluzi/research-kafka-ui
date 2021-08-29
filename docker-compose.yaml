@@ -14,6 +14,11 @@ services:
       ZOOKEEPER_INIT_LIMIT: 5
       ZOOKEEPER_SYNC_LIMIT: 2
       ZOOKEEPER_SERVERS: zk1:22888:23888;zk2:32888:33888;zk3:42888:43888
+      KAFKA_OPTS: "-Dzookeeper.4lw.commands.whitelist=srvr,mntr" 
+    labels: 
+      - co.elastic.metrics/module=zookeeper 
+      - co.elastic.metrics/hosts=zookeeper:22181,zookeeper:32181,zookeeper:42181 
+      - co.elastic.metrics/metricsets=mntr,server
 
   zk2:
     image: confluentinc/cp-zookeeper:6.2.0
@@ -28,6 +33,11 @@ services:
       ZOOKEEPER_INIT_LIMIT: 5
       ZOOKEEPER_SYNC_LIMIT: 2
       ZOOKEEPER_SERVERS: zk1:22888:23888;zk2:32888:33888;zk3:42888:43888
+      KAFKA_OPTS: "-Dzookeeper.4lw.commands.whitelist=srvr,mntr" 
+    labels: 
+      - co.elastic.metrics/module=zookeeper 
+      - co.elastic.metrics/hosts=zookeeper:22181,zookeeper:32181,zookeeper:42181 
+      - co.elastic.metrics/metricsets=mntr,server
 
   zk3:
     image: confluentinc/cp-zookeeper:6.2.0
@@ -42,6 +52,11 @@ services:
       ZOOKEEPER_INIT_LIMIT: 5
       ZOOKEEPER_SYNC_LIMIT: 2
       ZOOKEEPER_SERVERS: zk1:22888:23888;zk2:32888:33888;zk3:42888:43888
+      KAFKA_OPTS: "-Dzookeeper.4lw.commands.whitelist=srvr,mntr" 
+    labels: 
+      - co.elastic.metrics/module=zookeeper 
+      - co.elastic.metrics/hosts=zookeeper:22181,zookeeper:32181,zookeeper:42181 
+      - co.elastic.metrics/metricsets=mntr,server
 
   # kafka brokers
   kafka1:
@@ -73,6 +88,11 @@ services:
       CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
       CONFLUENT_METRICS_ENABLE: 'true'
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
+    labels: 
+      - co.elastic.logs/module=kafka 
+      - co.elastic.metrics/module=kafka 
+      - co.elastic.metrics/metricsets=partition,consumergroup 
+      - co.elastic.metrics/hosts='kafka1:19092,kafka2:29092,kafka3:39092'
 
   kafka2:
     image: confluentinc/cp-server:6.2.0
@@ -103,6 +123,11 @@ services:
       CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
       CONFLUENT_METRICS_ENABLE: 'true'
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
+    labels: 
+      - co.elastic.logs/module=kafka 
+      - co.elastic.metrics/module=kafka 
+      - co.elastic.metrics/metricsets=partition,consumergroup 
+      - co.elastic.metrics/hosts='kafka1:19092,kafka2:29092,kafka3:39092'
 
   kafka3:
     image: confluentinc/cp-server:6.2.0
@@ -133,6 +158,11 @@ services:
       CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
       CONFLUENT_METRICS_ENABLE: 'true'
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
+    labels: 
+      - co.elastic.logs/module=kafka 
+      - co.elastic.metrics/module=kafka 
+      - co.elastic.metrics/metricsets=partition,consumergroup 
+      - co.elastic.metrics/hosts='kafka1:19092,kafka2:29092,kafka3:39092'
 
   # schema-registry -> convert schema to AVRO or JSON format
   # consumed by kafka broker to produce topic

@@ -1,0 +1,3 @@
+docker run -d --name=filebeat --user=root --volume="$(pwd)/filebeat.docker.yml:/usr/share/filebeat/filebeat.yaml:ro" --volume="/mnt/data/docker/containers:/var/lib/docker/containers:ro" --volume="/var/run/docker.sock:/var/run/docker.sock:ro" docker.elastic.co/beats/filebeat:7.14.0 filebeat -e -strict.perms=false setup -E setup.kibana.host=10.130.233.190:9093 -E output.elasticsearch.hosts=10.130.233.190:9092
+
+docker run -d --name=metricbeat --user=root --network kafka_default --volume="$(pwd)/metricbeat.docker.yml:/usr/share/metricbeat/metricbeat.yml:ro" --volume="/var/run/docker.sock:/var/run/docker.sock:ro" docker.elastic.co/beats/metricbeat:7.14.0 -E setup.kibana.host=10.130.233.190:9093 -E output.elasticsearch.hosts=10.130.233.190:9092 -e -strict.perms=false
