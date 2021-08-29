@@ -227,7 +227,7 @@ services:
     image: provectuslabs/kafka-ui
     container_name: kafka-ui
     ports:
-      - "8000:8000"
+      - "8000:8080"
     restart: always
     environment:
       - KAFKA_CLUSTERS_0_NAME=local
